@@ -7,7 +7,6 @@ package com.mycompany.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author student
  */
-public class HelloServlet extends HttpServlet {
+public class BMIServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -28,23 +27,39 @@ public class HelloServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet HelloServlet123"+new Date()+"</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet HelloServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
+//    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+//            throws ServletException, IOException {
+//        response.setContentType("text/html;charset=UTF-8");
+//        try (PrintWriter out = response.getWriter()) {
+//            /* TODO output your page here. You may use following sample code. */
+//            out.println("<!DOCTYPE html>");
+//            out.println("<html>");
+//            out.println("<head>");
+//            out.println("<title>Servlet BMIServlet</title>");            
+//            out.println("</head>");
+//            out.println("<body>");
+//            out.println("<h1>Servlet BMIServlet at " + request.getContextPath() + "</h1>");
+//            out.println("</body>");
+//            out.println("</html>");
+//        }
+//    }
 
+    protected void doHandle(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String h = request.getParameter("h");
+        String w = request.getParameter("w");
+        PrintWriter out = response.getWriter();
+        if(h == null || w == null){
+            out.print("");
+            return;
+        }
+        double height = Double.parseDouble(h);
+        double weight = Double.parseDouble(w);
+        double bmi = weight/Math.pow(height/100, 2);
+        out.print(String.format("%.2f", bmi));
+        
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -57,7 +72,10 @@ public class HelloServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=utf-8");
+        PrintWriter out = response.getWriter();
+        out.print("doGet not working...");
+        out.print("<a href='/JavaWeb0727/form/bmiform.jsp'>Click me</a>");
     }
 
     /**
@@ -71,7 +89,7 @@ public class HelloServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        doHandle(request, response);
     }
 
     /**

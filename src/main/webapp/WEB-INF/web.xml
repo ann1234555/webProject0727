@@ -4,9 +4,17 @@
         <servlet-name>HelloServlet</servlet-name>
         <servlet-class>com.mycompany.servlet.HelloServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BMIServlet</servlet-name>
+        <servlet-class>com.mycompany.servlet.BMIServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HelloServlet</servlet-name>
         <url-pattern>/HelloServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BMIServlet</servlet-name>
+        <url-pattern>/servlet/bmi</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
